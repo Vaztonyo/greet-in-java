@@ -3,29 +3,60 @@ package greet;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Greet {
+import greet.Languages;
+import greet.Greeted;
 
-    public HashMap<String, Integer> greetedNames= new HashMap<String, Integer>();
+public class Greet {
+    static int greetCount = 0;
+    static String name;
+    static String language;
+    static String greetCommand;
+
+    public static HashMap<String, Integer> greetedNames = new HashMap<String, Integer>();
+
 
     public static void main(String[] args) {
         Scanner greet = new Scanner(System.in);
-        int greetCount = 0;
+
+        String getCommand;
+        int persCount = 0;
 
         while (greetCount >= 0) {
-            System.out.println("\n************************* !Welcome To My Greeting Program! *************************");
+            System.out.println("\n************************** !Welcome To My Greeting Program! **************************");
 
-            System.out.println("  Enter a command " +
-                    "\n  Or Enter help for the help menu \n");
+            System.out.println("\n Enter a command, " +
+                    "\n Or Enter help for the help menu \n");
 
 
-            String name = greet.nextLine();
+            getCommand = greet.nextLine();
 
-            System.out.println("\nEnter one of the following Languages: French, " +
-                    " English or " +
-                    " Afrikaans");
+            String splitCommand[] = getCommand.split(" ");
 
-            String language = greet.nextLine();
+            for (int i = 0; i < splitCommand.length; i++) {
+                greetCommand = splitCommand[0];
+                name = splitCommand[1];
+            }
 
+            if (greetCommand.toLowerCase().equals("greet")) {
+                System.out.println("\nEnter one of the following Languages: French, " +
+                        " English or " +
+                        " Afrikaans\n");
+
+                language = greet.nextLine().toUpperCase();
+
+                if (language == ""){
+                    System.out.println("\nHello, how are you " + name + "!\n");
+                }else {
+                    System.out.println("\n" + Languages.valueOf(language).getGreeting() + name + "!\n");
+                }
+
+                persCount++;
+
+                greetedNames.put(name, persCount);
+
+                persCount = 0;
+
+                System.out.println(greetedNames);
 //            if (language.toLowerCase().equals("english")) {
 //                System.out.println("Hi, how are you " + name + "?");
 //            } else if (language.toLowerCase().equals("afrikaans")) {
@@ -35,10 +66,25 @@ public class Greet {
 //            } else {
 //                System.out.println("Hi, how are you " + name + "?");
 //            }
-            System.out.println("\n************************************************************************************\n");
+            }
         }
 
 
+    }
+
+    public int counter(){
+        greetCount = greetedNames.size();
+
+        System.out.println("\n" + greetCount);
+        return greetCount;
+    }
+
+    public void clear() {
+        greetedNames.clear();
+    }
+
+    public void exit(int exitCode) {
+        System.exit(exitCode);
     }
 
 }

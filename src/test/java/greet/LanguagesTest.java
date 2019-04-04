@@ -1,12 +1,11 @@
 package greet;
 
-import greet.Language.Languages;
+import greet.Languages;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import greet.Language;
 
-public class LanguageTest {
+public class LanguagesTest {
 
     @Test
     public void shouldBeAbleToGetLanguage() {
@@ -14,15 +13,15 @@ public class LanguageTest {
 
         lang = Languages.ENGLISH;
 
-        assertEquals(lang.toString(), "ENGLISH");
+        assertEquals("english".toUpperCase(), lang.toString());
 
         lang = Languages.AFRIKAANS;
 
-        assertEquals(lang.toString(), "AFRIKAANS");
+        assertEquals("afrikaans".toUpperCase(), lang.toString());
 
         lang = Languages.FRENCH;
 
-        assertEquals(lang.toString(), "FRENCH");
+        assertEquals("french".toUpperCase(), lang.toString());
 
 
     }
