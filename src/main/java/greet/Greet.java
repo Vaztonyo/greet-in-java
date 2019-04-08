@@ -2,6 +2,7 @@ package greet;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.SplittableRandom;
 
 import greet.Languages;
 import greet.Greeted;
@@ -16,12 +17,14 @@ public class Greet {
     static boolean run = true;
 
     public static HashMap<String, Integer> greetedNames = new HashMap<String, Integer>();
+    private static String[] splitCommand;
+    static String currentCommand;
+    static Scanner greet = new Scanner(System.in);
+
 
 
     public static void main(String[] args) {
-        Scanner greet = new Scanner(System.in);
 
-        String currentCommand;
         int persCount = 0;
 
 
@@ -34,7 +37,7 @@ public class Greet {
 
             currentCommand = greet.nextLine();
 
-            String splitCommand[] = currentCommand.split(" ");
+            splitCommand = currentCommand.split(" ");
 
             getCommand = splitCommand[0];
 
@@ -104,7 +107,18 @@ public class Greet {
     }
 
     public static void clear() {
-        greetedNames.clear();
+//        currentCommand = greet.nextLine();
+         splitCommand = currentCommand.split(" ");
+
+        if(splitCommand.length == 2) {
+            for (int i = 0; i < splitCommand.length; i++) {
+                getCommand = splitCommand[0];
+                name = splitCommand[1];
+            }
+            greetedNames.remove(name);
+        } else if (splitCommand.length ==1){
+            greetedNames.clear();
+        }
     }
 
     public static void help() {
