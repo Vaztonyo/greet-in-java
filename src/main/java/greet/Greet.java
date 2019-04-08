@@ -6,11 +6,14 @@ import java.util.Scanner;
 import greet.Languages;
 import greet.Greeted;
 
+import static greet.Greeted.greeted;
+
 public class Greet {
     static int greetCount = 0;
     static String name;
     static String language;
-    static String greetCommand;
+    static String getCommand;
+    static boolean run = true;
 
     public static HashMap<String, Integer> greetedNames = new HashMap<String, Integer>();
 
@@ -18,73 +21,108 @@ public class Greet {
     public static void main(String[] args) {
         Scanner greet = new Scanner(System.in);
 
-        String getCommand;
+        String currentCommand;
         int persCount = 0;
 
-        while (greetCount >= 0) {
-            System.out.println("\n************************** !Welcome To My Greeting Program! **************************");
 
-            System.out.println("\n Enter a command, " +
-                    "\n Or Enter help for the help menu \n");
+        System.out.println("\n***************************** !Welcome To My Greeting Program! *****************************");
 
+        System.out.println("\n Enter a command, " +
+                "\n Or Enter help for the help menu \n");
 
-            getCommand = greet.nextLine();
+        while (run) {
 
-            String splitCommand[] = getCommand.split(" ");
+            currentCommand = greet.nextLine();
 
-            for (int i = 0; i < splitCommand.length; i++) {
-                greetCommand = splitCommand[0];
-                name = splitCommand[1];
-            }
+            String splitCommand[] = currentCommand.split(" ");
 
-            if (greetCommand.toLowerCase().equals("greet")) {
+            getCommand = splitCommand[0];
+
+            switch (getCommand.toLowerCase()) {
+
+                case "greet":
                 System.out.println("\nEnter one of the following Languages: French, " +
                         " English or " +
                         " Afrikaans\n");
 
+                    System.out.println(splitCommand.length);
+
+                if(splitCommand.length == 2) {
+                    for (int i = 0; i < splitCommand.length; i++) {
+                        getCommand = splitCommand[0];
+                        name = splitCommand[1];
+                    }
+                }
                 language = greet.nextLine().toUpperCase();
 
-                if (language == ""){
-                    System.out.println("\nHello, how are you " + name + "!\n");
+                if (language.isEmpty()){
+                    System.out.println("Hi how are you " + name + "!");
                 }else {
                     System.out.println("\n" + Languages.valueOf(language).getGreeting() + name + "!\n");
                 }
 
                 persCount++;
-
-                greetedNames.put(name, persCount);
+                if(!greetedNames.containsKey(name)){
+                    greetedNames.put(name, persCount);
+                    greetCount++;
+                } else {
+                    greetedNames.computeIfPresent(name, (k, v) -> v + 1);
+                }
 
                 persCount = 0;
+                System.out.println("\n" + greetedNames + "\n");
+                break;
 
-                System.out.println(greetedNames);
-//            if (language.toLowerCase().equals("english")) {
-//                System.out.println("Hi, how are you " + name + "?");
-//            } else if (language.toLowerCase().equals("afrikaans")) {
-//                System.out.println("Hallo hoe gaan dit met jou " + name + "?");
-//            } else if (language.toLowerCase().equals("french")) {
-//                System.out.println("Salut " + name + " comment vas-tu?");
-//            } else {
-//                System.out.println("Hi, how are you " + name + "?");
-//            }
+                case "greeted":
+                    greeted();
+                    break;
+                case "counter":
+                    counter();
+                    break;
+                case "clear":
+                    clear();
+                    System.out.println("Cleared!");
+                    break;
+                case "exit":
+                    exit();
+                    break;
+                case "help":
+                    help();
+                    break;
             }
+
         }
 
 
     }
 
-    public int counter(){
+    public static int counter(){
         greetCount = greetedNames.size();
 
-        System.out.println("\n" + greetCount);
+        System.out.println("\n" + greetCount + "\n");
         return greetCount;
     }
 
-    public void clear() {
+    public static void clear() {
         greetedNames.clear();
     }
 
-    public void exit(int exitCode) {
-        System.exit(exitCode);
+    public static void help() {
+        System.out.println("\nHelp Menu: \n" +
+                "\nThe following are commands you are able to enter in this program: \n" +
+                "\n1.greet + your/or anyone's name(this will prompt a language choice and display a greeting of the selected language), " +
+                "\n2.greeted will display a list of all people that has been greeted and how many time each person has been greeted, " +
+                "\n3.greeted + your/or anyone's name will display how many times you/that person have been greeted " +
+                "\n4.counter displays a count of how many people has been greeted " +
+                "\n5.clear deletes all people that were greeted and then resets the greet counter to 0 " +
+                "\n6.clear + your/or anyone's name will delete the greet counter for that person and decrement the greet counter by 1 " +
+                "\n7.exit exits the program " +
+                "\n8.help shows a person an overview of all possible commands(which is this help menu)\n");
+    }
+
+    public static boolean exit() {
+        System.out.println("\n**************************************** !Good Bye! ****************************************");
+        return run =false;
     }
 
 }

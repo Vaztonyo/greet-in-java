@@ -6,8 +6,8 @@ import static greet.Greet.greetedNames;
 
 public class Greeted{
 
-    public void greeted() {
-        String myString = "These are the names that were greeted";
+    public static void greeted() {
+        String myString = "These are the names that were greeted: ";
 
         System.out.println("\n" + myString);
 
