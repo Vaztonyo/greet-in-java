@@ -7,7 +7,7 @@ import java.util.SplittableRandom;
 import greet.Languages;
 import greet.Greeted;
 
-import static greet.Greeted.greeted;
+//import static greet.Greeted.greeted;
 
 public class Greet {
     static int greetCount = 0;
@@ -25,8 +25,7 @@ public class Greet {
 
     public static void main(String[] args) {
 
-        int persCount = 0;
-
+        Greeted greeted = new Greeted();
 
         System.out.println("\n***************************** !Welcome To My Greeting Program! *****************************");
 
@@ -44,47 +43,21 @@ public class Greet {
             switch (getCommand.toLowerCase()) {
 
                 case "greet":
-                System.out.println("\nEnter one of the following Languages: French, " +
-                        " English or " +
-                        " Afrikaans\n");
-
                     System.out.println(splitCommand.length);
+                    getCommand = splitCommand[0];
+                    greeted.greetPerson(splitCommand);
 
-                if(splitCommand.length == 2) {
-                    for (int i = 0; i < splitCommand.length; i++) {
-                        getCommand = splitCommand[0];
-                        name = splitCommand[1];
-                    }
-                }
-                language = greet.nextLine().toUpperCase();
-
-                if (language.isEmpty()){
-                    System.out.println("Hi how are you " + name + "!");
-                }else {
-                    System.out.println("\n" + Languages.valueOf(language).getGreeting() + name + "!\n");
-                }
-
-                persCount++;
-                if(!greetedNames.containsKey(name)){
-                    greetedNames.put(name, persCount);
-                    greetCount++;
-                } else {
-                    greetedNames.computeIfPresent(name, (k, v) -> v + 1);
-                }
-
-                persCount = 0;
-                System.out.println("\n" + greetedNames + "\n");
                 break;
 
                 case "greeted":
-                    greeted();
+                    greeted.greeted();
                     break;
                 case "counter":
                     counter();
                     break;
                 case "clear":
                     clear();
-                    System.out.println("Cleared!");
+
                     break;
                 case "exit":
                     exit();
@@ -92,6 +65,8 @@ public class Greet {
                 case "help":
                     help();
                     break;
+                    default:
+                        System.out.println("\nPlease Enter a Valid Command(enter help to see list of possible commands)\n");
             }
 
         }
@@ -116,8 +91,10 @@ public class Greet {
                 name = splitCommand[1];
             }
             greetedNames.remove(name);
+            System.out.println("\nRemoved: " + name + "\n");
         } else if (splitCommand.length ==1){
             greetedNames.clear();
+            System.out.println("\nCleared!\n");
         }
     }
 
@@ -131,7 +108,8 @@ public class Greet {
                 "\n5.clear deletes all people that were greeted and then resets the greet counter to 0 " +
                 "\n6.clear + your/or anyone's name will delete the greet counter for that person and decrement the greet counter by 1 " +
                 "\n7.exit exits the program " +
-                "\n8.help shows a person an overview of all possible commands(which is this help menu)\n");
+                "\n8.help shows a person an overview of all possible commands(which is this help menu)\n" +
+                "\nNotee:");
     }
 
     public static boolean exit() {
