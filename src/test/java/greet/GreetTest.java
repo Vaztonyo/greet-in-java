@@ -1,9 +1,7 @@
 package greet;
-import greet.Greet;
 
+import greet.methods.Counter;
 import org.junit.jupiter.api.Test;
-
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,16 +9,25 @@ public class GreetTest {
 
 
     @Test
-    public void shouldGreetUserInEnglish(){
-    }
+    public void shouldGreetUserAndCountTheNumOfNamesGreeted(){
+        String[] splitCommand = {"greet", "Tony", "english"};
 
-    @Test
-    public void shouldGreetUserInAfrikaans(){
+        Greeted greeted = new Greeted();
 
-    }
+        Counter count = new Counter();
+        greeted.greetPerson(splitCommand);
 
-    @Test
-    public void shouldGreetUserInFrench(){
+        assertEquals(1, count.counter());
+
+        splitCommand = new String[]{"greet", "Mike", "french"};
+        greeted.greetPerson(splitCommand);
+
+        assertEquals(2, count.counter());
+
+        splitCommand = new String[]{"greet", "Billy", "afrikaans"};
+        greeted.greetPerson(splitCommand);
+
+        assertEquals(3, count.counter());
 
     }
 
