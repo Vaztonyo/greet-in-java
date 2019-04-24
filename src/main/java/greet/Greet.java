@@ -69,22 +69,6 @@ public class Greet {
 
     }
 
-//    public static void clear() {
-////        currentCommand = greet.nextLine();
-//         splitCommand = currentCommand.split(" ");
-//
-//        if(splitCommand.length == 2) {
-//            for (int i = 0; i < splitCommand.length; i++) {
-//                getCommand = splitCommand[0];
-//                name = splitCommand[1];
-//            }
-//            greeted.greetedNames.remove(name);
-//            System.out.println("\nRemoved: " + name + "\n");
-//        } else if (splitCommand.length ==1){
-//            greeted.greetedNames.clear();
-//            System.out.println("\nCleared!\n");
-//        }
-//    }
 
     public static boolean exit() {
         System.out.println("\n**************************************** !Good Bye! ****************************************");

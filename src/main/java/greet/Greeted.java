@@ -8,7 +8,6 @@ public class Greeted {
     public void greetPerson(String[] splitCommand) {
         String name;
          String language;
-         String getCommand;
         try {
             if(splitCommand.length == 2){
                 name = splitCommand[1];
@@ -33,8 +32,6 @@ public class Greeted {
                 } else {
                     greetedNames.computeIfPresent(name, (k, v) -> v + 1);
                 }
-
-//                System.out.println("\n" + greetedNames + "\n");
     }
 
     public void greeted(String[] splitCommand) {
@@ -45,7 +42,6 @@ public class Greeted {
             String value = greetedNames.get(name).toString();
             System.out.println("\nName: " + key + ", Times Greeted: " + value + "\n");
         } else {
-//            System.out.println(greetedNames);
             String myString = "These are the names that were greeted: ";
 
             System.out.println("\n" + myString + "\n");
