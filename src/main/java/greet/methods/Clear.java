@@ -1,22 +1,24 @@
 package greet.methods;
 
-import greet.Greet;
-import greet.Greeted;
+import greet.DataBase;
+
+import java.sql.SQLException;
 
 public class Clear {
-//     Greeted greeted;
 
-    public void clear(String[] splitCommand) {
+DataBase db = new DataBase();
+
+    public void clear(String[] splitCommand) throws SQLException, ClassNotFoundException {
         String name = null;
 
         if(splitCommand.length == 2) {
             for (int i = 0; i < splitCommand.length; i++) {
                 name = splitCommand[1];
             }
-            Greeted.getNameMap().remove(name);
+            db.deleteOneName(name);
             System.out.println("\nRemoved: " + name + "\n");
         } else if (splitCommand.length ==1){
-            Greeted.getNameMap().clear();
+            db.deleteData();
             System.out.println("\nCleared!\n");
         }
     }

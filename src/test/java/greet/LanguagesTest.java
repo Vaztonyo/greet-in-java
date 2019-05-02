@@ -23,7 +23,6 @@ public class LanguagesTest {
 
         assertEquals("french".toUpperCase(), lang.toString());
 
-
     }
 
 }

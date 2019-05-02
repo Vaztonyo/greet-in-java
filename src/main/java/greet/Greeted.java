@@ -1,11 +1,12 @@
 package greet;
 
-import java.util.HashMap;
+import java.sql.SQLException;
 
 public class Greeted {
-    public static HashMap<String, Integer> greetedNames = new HashMap<String, Integer>();
 
-    public void greetPerson(String[] splitCommand) {
+    DataBase db = new DataBase();
+
+    public void greetPerson(String[] splitCommand) throws SQLException, ClassNotFoundException {
         String name;
          String language;
         try {
@@ -27,35 +28,33 @@ public class Greeted {
             System.out.println("\n" + Languages.valueOf("ENGLISH").getGreeting() + name + "\n");
         }
             name = splitCommand[1];
-                if(!greetedNames.containsKey(name)){
-                    greetedNames.put(name, 1);
-                } else {
-                    greetedNames.computeIfPresent(name, (k, v) -> v + 1);
-                }
+            db.addToDataBase(name, 1);
     }
 
-    public void greeted(String[] splitCommand) {
-        if(splitCommand.length == 2){
-            String name;
-            name = splitCommand[1];
-            String key = name;
-            String value = greetedNames.get(name).toString();
-            System.out.println("\nName: " + key + ", Times Greeted: " + value + "\n");
-        } else {
-            String myString = "These are the names that were greeted: ";
-
-            System.out.println("\n" + myString + "\n");
-
-            for (String name: greetedNames.keySet()){
+    public void greeted(String[] splitCommand) throws SQLException, ClassNotFoundException {
+        try{
+            if(splitCommand.length == 2){
+                String name;
+                name = splitCommand[1];
                 String key = name;
-                String value = greetedNames.get(name).toString();
+                String value = db.getAllDataInDB().get(name).toString();
                 System.out.println("\nName: " + key + ", Times Greeted: " + value + "\n");
+            } else {
+                String myString = "These are the names that were greeted: ";
+
+                System.out.println("\n" + myString + "\n");
+
+                for (String name: db.getAllDataInDB().keySet()){
+                    String key = name;
+                    String value = db.getAllDataInDB().get(name).toString();
+                    System.out.println("\nName: " + key + ", Times Greeted: " + value + "\n");
+                }
             }
+        } catch (NullPointerException e){
+            String name = splitCommand[1];
+            System.out.println("\nSorry " + name + " you have not been greeted yet.\n");
         }
 
     }
 
-    public static HashMap<String, Integer> getNameMap() {
-        return greetedNames;
-    }
 }

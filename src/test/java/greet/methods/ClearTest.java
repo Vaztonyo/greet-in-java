@@ -2,12 +2,14 @@ package greet.methods;
 import greet.Greeted;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClearTest {
 
     @Test
-    public void shouldBeAbleToClearAName(){
+    public void shouldBeAbleToClearAName() throws SQLException, ClassNotFoundException {
         String[] splitCommand = {"greet", "Tony", "english"};
 
         Greeted greeted = new Greeted();
@@ -28,7 +30,7 @@ public class ClearTest {
     }
 
     @Test
-    public void shouldBeAbleToClearAllNames(){
+    public void shouldBeAbleToClearAllNames() throws SQLException, ClassNotFoundException {
         String[] splitCommand = {"greet", "Tony", "english"};
 
         Greeted greeted = new Greeted();

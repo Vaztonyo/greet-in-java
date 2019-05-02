@@ -1,14 +1,15 @@
 package greet.methods;
-import greet.Greeted;
+import greet.DataBase;
+
+import java.sql.SQLException;
 
 public class Counter {
+    int greetCount;
+    DataBase db = new DataBase();
 
-    int greetCount = 0;
-
-    public int counter(){
-        greetCount = Greeted.getNameMap().size();
-
-        System.out.println("\n" + greetCount + "\n");
+    public int counter() throws SQLException, ClassNotFoundException {
+        greetCount = db.countDataInDB();
+        System.out.println("\nTotal number of people greeted: " + greetCount + "\n");
         return greetCount;
     }
 }

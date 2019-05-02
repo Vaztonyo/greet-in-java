@@ -2,6 +2,7 @@ package greet;
 
 import greet.methods.*;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -20,9 +21,7 @@ public class Greet {
     static Counter count = new Counter();
 
 
-    public static void main(String[] args) {
-
-
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
         System.out.println("\n***************************** !Welcome To My Greeting Program! *****************************");
 
@@ -40,7 +39,6 @@ public class Greet {
             switch (getCommand.toLowerCase()) {
 
                 case "greet":
-                    System.out.println(splitCommand.length);
                     getCommand = splitCommand[0];
                     greeted.greetPerson(splitCommand);
 
@@ -64,11 +62,8 @@ public class Greet {
                     default:
                         System.out.println("\nPlease Enter a Valid Command(enter help to see list of possible commands)\n");
             }
-
         }
-
     }
-
 
     public static boolean exit() {
         System.out.println("\n**************************************** !Good Bye! ****************************************");
