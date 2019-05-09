@@ -2,10 +2,11 @@ package greet;
 
 import java.sql.SQLException;
 
-public class Greeted {
+public class Greeted implements GreetInterface {
 
     DataBase db = new DataBase();
 
+    @Override
     public void greetPerson(String[] splitCommand) throws SQLException, ClassNotFoundException {
         String name;
          String language;
@@ -31,6 +32,7 @@ public class Greeted {
             db.addToDataBase(name, 1);
     }
 
+    @Override
     public void greeted(String[] splitCommand) throws SQLException, ClassNotFoundException {
         try{
             if(splitCommand.length == 2){

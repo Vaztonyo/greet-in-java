@@ -9,28 +9,40 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GreetTest {
 
+    Greeted greeted = new Greeted();
+
 
     @Test
     public void shouldGreetUserAndCountTheNumOfNamesGreeted() throws SQLException, ClassNotFoundException {
         String[] splitCommand = new String[]{"greet", "Tony", "english"};
 
-        Greeted greeted = new Greeted();
-
         Counter count = new Counter();
         greeted.greetPerson(splitCommand);
 
-//        assertEquals(1, count.counter());
-
-        splitCommand = new String[]{"greet", "Mike", "french"};
-        greeted.greetPerson(splitCommand);
-
-//        assertEquals(2, count.counter());
-
-        splitCommand = new String[]{"greet", "Vaz", "afrikaans"};
-        greeted.greetPerson(splitCommand);
-
-        assertEquals(4, count.counter());
-
+        assertEquals(1, count.counter());
     }
 
+    @Test
+    public void shouldAddNewUserAndUpdateTheNumOfNamesGreeted() throws SQLException, ClassNotFoundException {
+        String[] splitCommand;
+
+        Counter count = new Counter();
+
+        splitCommand = new String[]{"greet", "Toby", "afrikaans"};
+        greeted.greetPerson(splitCommand);
+
+        assertEquals(2, count.counter());
+    }
+
+    @Test
+    public void shouldGetUserAndHowMuchTimesThatUserHaveBeenGreeted() throws SQLException, ClassNotFoundException {
+        String[] splitCommand = new String[]{"greeted", "Tony"};
+        greeted.greeted(splitCommand);
+    }
+
+    @Test
+    public void shouldGetAllUsersAndHowMuchTimesTheyHaveBeenGreeted() throws SQLException, ClassNotFoundException {
+        String[] splitCommand = new String[]{"greeted"};
+        greeted.greeted(splitCommand);
+    }
 }

@@ -1,5 +1,6 @@
 package greet.methods;
 import greet.Greeted;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -8,41 +9,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClearTest {
 
-    @Test
-    public void shouldBeAbleToClearAName() throws SQLException, ClassNotFoundException {
-        String[] splitCommand = {"greet", "Tony", "english"};
+    @BeforeEach
+    public void setup() throws SQLException, ClassNotFoundException {
+        Greeted greet = new Greeted();
 
-        Greeted greeted = new Greeted();
+        String[] person1 = new String[]{"greet", "Toby", "afrikaans"};
+        
+        greet.greetPerson(person1);
+
+        String[] person2 = new String[]{"greet", "Tony", "french"};
+
+        greet.greetPerson(person2);
+    }
+
+    @Test
+    public void shouldBeAbleToClearAGreetedName() throws SQLException, ClassNotFoundException {
+        String[] splitCommand ;
+
         Clear clear = new Clear();
         Counter count = new Counter();
 
-        greeted.greetPerson(splitCommand);
-        assertEquals(1, count.counter());
 
-        splitCommand = new String[]{"greet", "Mike", "french"};
-        greeted.greetPerson(splitCommand);
-        assertEquals(2, count.counter());
-
-        splitCommand = new String[]{"clear", "Tony"};
+        splitCommand = new String[]{"clear", "Toby"};
 
         clear.clear(splitCommand);
         assertEquals(1, count.counter());
     }
 
     @Test
-    public void shouldBeAbleToClearAllNames() throws SQLException, ClassNotFoundException {
-        String[] splitCommand = {"greet", "Tony", "english"};
+    public void shouldBeAbleToClearAllNamesInDB() throws SQLException, ClassNotFoundException {
+        String[] splitCommand;
 
-        Greeted greeted = new Greeted();
         Clear clear = new Clear();
         Counter count = new Counter();
-
-        greeted.greetPerson(splitCommand);
-        assertEquals(1, count.counter());
-
-        splitCommand = new String[]{"greet", "Mike", "french"};
-        greeted.greetPerson(splitCommand);
-        assertEquals(2, count.counter());
 
         splitCommand = new String[]{"clear"};
 
