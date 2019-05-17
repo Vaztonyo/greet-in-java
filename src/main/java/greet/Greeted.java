@@ -1,62 +1,85 @@
 package greet;
 
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Greeted implements GreetInterface {
-
-    DataBase db = new DataBase();
+    public static Map<String, Integer> greeted = new HashMap<>();
 
     @Override
-    public void greetPerson(String[] splitCommand) throws SQLException, ClassNotFoundException {
-        String name;
-         String language;
-        try {
-            if(splitCommand.length == 2){
-                name = splitCommand[1];
-                language = "ENGLISH";
-                System.out.println("\n" + Languages.valueOf(language).getGreeting() + name + "\n");
-            } else if(splitCommand.length == 3) {
-                name = splitCommand[1];
-                language = splitCommand[2].toUpperCase();
-                System.out.println("\n" + Languages.valueOf(language).getGreeting() + name + "\n");
+    public String greetPerson(String name, String language) {
+        String greeting;
 
-            } else {
-                System.out.println("\nInvalid\n");
-                return;
-            }
-        } catch (IllegalArgumentException e) {
-            name= splitCommand[1];
-            System.out.println("\n" + Languages.valueOf("ENGLISH").getGreeting() + name + "\n");
+        if (greeted.containsKey(name)) {
+            greeted.computeIfPresent(name, (k, v) -> v + 1);
+//            greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
+        } else {
+            greeted.put(name, 1);
         }
-            name = splitCommand[1];
-            db.addToDataBase(name, 1);
+        greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
+
+        System.out.println(greeting);
+
+        return greeting;
     }
 
     @Override
-    public void greeted(String[] splitCommand) throws SQLException, ClassNotFoundException {
-        try{
-            if(splitCommand.length == 2){
-                String name;
-                name = splitCommand[1];
-                String key = name;
-                String value = db.getAllDataInDB().get(name).toString();
-                System.out.println("\nName: " + key + ", Times Greeted: " + value + "\n");
-            } else {
-                String myString = "These are the names that were greeted: ";
+    public String greeted(String userName) {
+        String message = "";
+        String value = "";
+        String key = "";
 
-                System.out.println("\n" + myString + "\n");
-
-                for (String name: db.getAllDataInDB().keySet()){
-                    String key = name;
-                    String value = db.getAllDataInDB().get(name).toString();
-                    System.out.println("\nName: " + key + ", Times Greeted: " + value + "\n");
+            try {
+                if(userName.isEmpty()) {
+                    for (String name: greeted.keySet()){
+                        key = name;
+                        value = greeted.get(name).toString();
+                        message += "\nName: " + key + ", Times Greeted: " + value + "\n";
+                    }
                 }
+                if (!userName.isEmpty()){
+                    key = userName;
+                    value = greeted.get(userName).toString();
+                    message = "\nName: " + key + ", Times Greeted: " + value + "\n";
+                }
+                else if (userName.isEmpty() && greeted.isEmpty()) {
+                    message = "\nNobody has been greeted yet";
+                }
+            } catch (NullPointerException e) {
+                    message = "\nSorry " + userName + " you have not been greeted yet.\n";
             }
-        } catch (NullPointerException e){
-            String name = splitCommand[1];
-            System.out.println("\nSorry " + name + " you have not been greeted yet.\n");
+
+        System.out.println(message);
+        return message;
+    }
+
+
+
+    @Override
+    public String counter(){
+        int count = greeted.size();
+        System.out.println("Number of people that were greeted: " + count);
+        return "Number of people that were greeted: " + count;
+    }
+
+    @Override
+
+    public String clear(String userName) {
+        String clearMsg = "";
+            if(userName.isEmpty() && !greeted.isEmpty()) {
+                greeted.clear();
+                clearMsg = "\nCleared!\n";
+            } else if (greeted.containsKey(userName)){
+                greeted.remove(userName);
+                clearMsg = "\nRemoved: " + userName + "\n";
+            }
+         else{
+            clearMsg = "Cannot remove name(s) that has not been greeted";
         }
 
+
+        System.out.println(clearMsg);
+        return clearMsg;
     }
 
 }

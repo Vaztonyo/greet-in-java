@@ -3,7 +3,8 @@ package greet;
 enum Languages {
     ENGLISH("Hello, how are you "),
     FRENCH("Bonjour, comment vas-tu "),
-    AFRIKAANS("Hallo, hoe gaan dit met jou ");
+    AFRIKAANS("Hallo, hoe gaan dit met jou "),
+    XHOSA("Molo ");
 
     private final String greeting;
 
