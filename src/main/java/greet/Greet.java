@@ -13,7 +13,6 @@ public class Greet {
         Scanner greetInput = new Scanner(System.in);
         System.out.println("\n***************************** !Welcome To My Greeting Program! *****************************");
 
-
         boolean run = true;
 
         while (run) {
@@ -27,7 +26,7 @@ public class Greet {
                 break;
             }
 
-                new CommandProcessor(new CommandExtractor(currentCommand)).execute();
+                System.out.println(new CommandProcessor(new DataBase(),new CommandExtractor(currentCommand)).execute());
         }
     }
 }

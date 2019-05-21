@@ -17,12 +17,12 @@ public class CommandProcessorTest {
     @BeforeEach
     public void setupTests() throws SQLException, ClassNotFoundException {
         xtractor = new CommandExtractor("clear");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         xProcessor.execute();
 
         xtractor = new CommandExtractor("greet Tony");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         xProcessor.execute();
     }
@@ -30,7 +30,7 @@ public class CommandProcessorTest {
     @Test
     public void shouldTestGreetedCommand() throws SQLException, ClassNotFoundException {
         xtractor = new CommandExtractor("greeted");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         assertEquals("\nName: Tony, Times Greeted: 1\n", xProcessor.execute());
     }
@@ -38,7 +38,7 @@ public class CommandProcessorTest {
     @Test
     public void shouldTestGreetCommand() throws SQLException, ClassNotFoundException {
         xtractor = new CommandExtractor("greet tyler xhosa");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         assertEquals("\nMolo Tyler\n", xProcessor.execute());
     }
@@ -46,11 +46,11 @@ public class CommandProcessorTest {
     @Test
     public void shouldTestCounterCommand() throws SQLException, ClassNotFoundException {
         xtractor = new CommandExtractor("greet tyler");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
         xProcessor.execute();
 
         xtractor = new CommandExtractor("counter");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         assertEquals("Total number of people greeted: 2\n", xProcessor.execute());
     }
@@ -58,17 +58,17 @@ public class CommandProcessorTest {
     @Test
     public void shouldBeAbleAddNewNamesInDb() throws SQLException, ClassNotFoundException {
         xtractor = new CommandExtractor("counter");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         assertEquals("Total number of people greeted: 1\n", xProcessor.execute());
 
 
         xtractor = new CommandExtractor("greet Mike");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
         xProcessor.execute();
 
         xtractor = new CommandExtractor("counter");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         assertEquals("Total number of people greeted: 2\n", xProcessor.execute());
     }
@@ -76,12 +76,12 @@ public class CommandProcessorTest {
     @Test
     public void shouldTestClearCommand() throws SQLException, ClassNotFoundException {
         xtractor = new CommandExtractor("clear");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
 
         assertEquals("\nCleared!\n", xProcessor.execute());
 
         xtractor = new CommandExtractor("counter");
-        xProcessor = new CommandProcessor(xtractor);
+        xProcessor = new CommandProcessor(new DataBase(),xtractor);
         assertEquals("Total number of people greeted: 0\n", xProcessor.execute());
 
     }

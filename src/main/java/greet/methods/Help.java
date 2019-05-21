@@ -14,7 +14,6 @@ public class Help {
                 "\n 8.help shows a person an overview of all possible commands(which is this help menu)\n" +
                 "\nNote: Valid Languages are: English, French & Afrikaans\n";
 
-        System.out.println(helpMsg);
         return helpMsg;
     }
 }

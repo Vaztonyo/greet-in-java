@@ -11,9 +11,11 @@ import java.sql.SQLException;
 public class CommandProcessor {
 
     CommandExtractor commandX;
+    GreetInterface db;
 
-    public CommandProcessor(CommandExtractor commandX){
+    public CommandProcessor(GreetInterface db,CommandExtractor commandX){
         this.commandX = commandX;
+        this.db = db;
     }
 
     public String getCommandX() {
@@ -26,11 +28,10 @@ public class CommandProcessor {
         return commandX.getLang();
     }
 
-     GreetInterface db = new DataBase();
-//    GreetInterface db = new Greeted();
-
     public String execute() throws SQLException, ClassNotFoundException {
-         Help help = new Help();
+        db = new DataBase();
+//        db = new Greeted();
+        Help help = new Help();
 
         switch (getCommandX().toLowerCase()) {
             case "greet":
@@ -44,7 +45,6 @@ public class CommandProcessor {
             case "help":
                 return help.help();
             default:
-                System.out.println("\nPlease Enter a Valid Command(enter help to see list of possible commands)\n");
                 return  "\nPlease Enter a Valid Command(enter help to see list of possible commands)\n";
         }
 

@@ -14,8 +14,6 @@ public class DataBase implements GreetInterface {
         db.addToDataBase(name, 1);
         greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
 
-        System.out.println(greeting);
-
         return greeting;
     }
 
@@ -47,7 +45,6 @@ public class DataBase implements GreetInterface {
             }
         }
 
-        System.out.println(message);
         return message;
     }
 
@@ -62,7 +59,6 @@ public class DataBase implements GreetInterface {
             db.deleteOneName(userName);
             clearMsg = "\nRemoved: " + userName + "\n";
         }
-        System.out.println(clearMsg);
         return clearMsg;
     }
 
@@ -70,7 +66,6 @@ public class DataBase implements GreetInterface {
     public String counter() throws SQLException, ClassNotFoundException {
         int greetCount;
         greetCount = db.countDataInDB();
-        System.out.println("Total number of people greeted: " + greetCount + "\n");
         return ("Total number of people greeted: " + greetCount + "\n");
     }
 

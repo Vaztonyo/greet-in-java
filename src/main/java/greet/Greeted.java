@@ -12,13 +12,10 @@ public class Greeted implements GreetInterface {
 
         if (greeted.containsKey(name)) {
             greeted.computeIfPresent(name, (k, v) -> v + 1);
-//            greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
         } else {
             greeted.put(name, 1);
         }
         greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
-
-        System.out.println(greeting);
 
         return greeting;
     }
@@ -48,17 +45,12 @@ public class Greeted implements GreetInterface {
             } catch (NullPointerException e) {
                     message = "\nSorry " + userName + " you have not been greeted yet.\n";
             }
-
-        System.out.println(message);
         return message;
     }
-
-
 
     @Override
     public String counter(){
         int count = greeted.size();
-        System.out.println("Number of people that were greeted: " + count);
         return "Number of people that were greeted: " + count;
     }
 
@@ -76,10 +68,7 @@ public class Greeted implements GreetInterface {
          else{
             clearMsg = "Cannot remove name(s) that has not been greeted";
         }
-
-
-        System.out.println(clearMsg);
-        return clearMsg;
+         return clearMsg;
     }
 
 }
