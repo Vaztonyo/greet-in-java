@@ -12,7 +12,11 @@ public class DataBase implements GreetInterface {
         String greeting;
 
         db.addToDataBase(name, 1);
-        greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
+        try {
+            greeting = "\n" + Languages.valueOf(language).getGreeting() + name + "\n";
+        } catch (IllegalArgumentException e){
+            greeting = "\n" + Languages.valueOf("ENGLISH").getGreeting() + name + "\n";
+        }
 
         return greeting;
     }

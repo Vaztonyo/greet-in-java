@@ -29,8 +29,6 @@ public class CommandProcessor {
     }
 
     public String execute() throws SQLException, ClassNotFoundException {
-        db = new DataBase();
-//        db = new Greeted();
         Help help = new Help();
 
         switch (getCommandX().toLowerCase()) {

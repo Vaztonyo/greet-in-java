@@ -24,21 +24,18 @@ public class CommandExtractorTest {
     @Test
     public void shouldBeableToGetCommand(){
 
-        System.out.println(commandX.getCommand());
 
         assertEquals("greet", commandX.getCommand());
     }
 
     @Test
     public void shouldBeableToGetName(){
-        System.out.println(commandX.getName());
 
         assertEquals("Tony", commandX.getName());
     }
 
     @Test
     public void shouldBeableToGetLanguage(){
-        System.out.println(commandX.getLang());
 
         assertEquals("ENGLISH", commandX.getLang());
     }
